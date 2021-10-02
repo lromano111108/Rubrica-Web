@@ -1,0 +1,221 @@
+﻿@model List<RubricaWeb.ViewModels.VM_Rubrica>
+
+@{
+    Layout = "~/Views/Shared/_Layout_Docente.cshtml";    //List<RubricaWeb.ViewModels.VM_Estudiante> itemsCurso = (List<RubricaWeb.ViewModels.VM_Estudiante>)ViewBag.listaEstudiantes;
+    string nombreMateria = ViewBag.NombreMateria;
+    string nombreCurso = ViewBag.NombreCurso;
+
+    List<SelectListItem> combo = (List<SelectListItem>)ViewBag.comboCriterios;
+
+    RubricaWeb.ViewModels.VM_Tema tema = ViewBag.datosTema;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>rubrica</title>
+    <link href="~/Content/rubrica.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+</head>
+<body class="container-fluid">
+
+    @using (Html.BeginForm())
+    {
+        @*@Html.HiddenFor(Model => Model.IdDocente)idNroTema*@
+
+
+        @*<div class="col-1 p-0 border">
+                @Html.DropDownListFor(model => model[1].Numerotema, new SelectList(combo, "Value", "Text"), "Valor", htmlAttributes: new { @class = "form-control dropdown text-center", @Name = "valorCriterio" })
+
+
+                @Html.DropDownList("idCombo", combo, "combo", htmlAttributes: new { @class = "form-control", @onchange= "Refresh()" })
+
+
+            </div>*@
+
+        <div class="container-fluid text-center align-items-center">
+
+            <header class="pb-3 mb-4 border-bottom text-white ">
+                <h3 class="text-center h3 font-weight-bolder"> <span class="badge badge-pill badge-secondary" style="font-size:larger">@Html.Label(nombreMateria)</span></h3>
+                <h5 class="text-center h5 font-weight-bolder" style="font-size:large;"> <span class="badge badge-pill badge-secondary" style="font-size:larger">@Html.Label(nombreCurso)</span></h5>
+                <h5 class="text-center h5 font-weight-bolder" style="font-size:large;"> <span class="badge badge-pill badge-secondary" style="font-size:larger"> @Html.Label(tema.NumeroDeTema) </span></h5>
+            </header>
+
+
+            <div class="row  text-center table-striped  ">
+                <div class="col-1 table-bordered font-weight-bold  bg-info d-flex align-items-center justify-content-center  ">N°</div>
+                <div class="col-3 border font-weight-bold bg-info  d-flex align-items-center justify-content-center">Nombre y Apellido</div>
+
+                @if (tema.DescripcionCriterio1 == "")
+                {
+                    <div class="col-1 border font-weight-bold bg-info d-none border-0 ">Criterio 1: @(tema.DescripcionCriterio1)</div>
+                }
+                else
+                {
+                    <div class="col-1 border font-weight-bold bg-info   d-flex align-items-center justify-content-center">Criterio 1:  @(tema.DescripcionCriterio1)</div>
+                }
+
+                @if (tema.DescripcionCriterio2 == "")
+                {
+                    <div class="col-1 border font-weight-bold bg-info d-none border-0">Criterio 2: @(tema.DescripcionCriterio2)</div>
+                }
+                else
+                {
+                    <div class="col-1 border font-weight-bold bg-info  d-flex align-items-center justify-content-center">Criterio 2: @(tema.DescripcionCriterio2)</div>
+                }
+
+                @if (tema.DescripcionCriterio3 == "")
+                {
+                    <div class="col-1 border font-weight-bold bg-info d-none border-0">Criterio 3: @(tema.DescripcionCriterio3)</div>
+                }
+                else
+                {
+                    <div class="col-1 border font-weight-bold bg-info  d-flex align-items-center justify-content-center">Criterio 3: @(tema.DescripcionCriterio3)</div>
+                }
+
+                @if (tema.DescripcionCriterio4 == "")
+                {
+                    <div class="col-1 border font-weight-bold bg-info d-none border-0">Criterio 4: @(tema.DescripcionCriterio4)</div>
+                }
+                else
+                {
+                    <div class="col-1 border font-weight-bold bg-info  d-flex align-items-center justify-content-center">Criterio 4: @(tema.DescripcionCriterio4)</div>
+                }
+
+                @if (tema.DescripcionCriterio5 == "")
+                {
+                    <div class="col-1 border font-weight-bold bg-info d-none border-0">Criterio 5: @(tema.DescripcionCriterio5)</div>
+                }
+                else
+                {
+                    <div class="col-1 border font-weight-bold bg-info  d-flex align-items-center justify-content-center">Criterio 5: @(tema.DescripcionCriterio5)</div>
+                }
+
+                @if (tema.DescripcionCriterio6 == "")
+                {
+                    <div class="col-1 border font-weight-bold bg-info d-none border-0 ">Criterio 6: @(tema.DescripcionCriterio6)</div>
+                }
+                else
+                {
+                    <div class="col-1 border font-weight-bold bg-info  d-flex align-items-center justify-content-center ">Criterio 6: @(tema.DescripcionCriterio6)</div>
+                }
+                <div class="col-2 border font-weight-bold bg-info  d-flex align-items-center justify-content-center ">Nota</div>
+
+            </div>
+
+
+            @{ int nro = 1;
+                for (int i = 0; i < Model.Count; i++)
+
+                {
+                    <div class="row  text-center p-0 ">
+
+                        @Html.HiddenFor(Model => Model[i].IdEstudiante, new { })
+                        @Html.HiddenFor(Model => Model[i].IdTema, new { })
+                        @Html.HiddenFor(Model => Model[i].IdMateria, new { })
+                        @Html.HiddenFor(Model => Model[0].IdNroTema, new { })
+
+                        <div class="col-1 border bg-light">@(nro++)</div>
+                        <div class="col-3 border bg-light">@Html.Label(Model[i].NombreEstudiante)</div>
+
+                        @if (tema.DescripcionCriterio1 == "")
+                        {
+                            <div class="col-1 p-0 border d-none"> @Html.DropDownListFor(model => Model[i].ValorCriterio1, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio1), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+
+                        }
+                        else
+                        {
+                            <div class="col-1 p-0 border border-0 bg-light"> @Html.DropDownListFor(model => Model[i].ValorCriterio1, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio1), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+                        }
+
+                        @if (tema.DescripcionCriterio2 == "")
+                        {
+                            <div class="col-1 p-0 border d-none"> @Html.DropDownListFor(model => Model[i].ValorCriterio2, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio2), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+
+                        }
+                        else
+                        {
+                            <div class="col-1 p-0 border border-0 bg-light"> @Html.DropDownListFor(model => Model[i].ValorCriterio2, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio2), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+                        }
+                        @if (tema.DescripcionCriterio3 == "")
+                        {
+                            <div class="col-1 p-0 border border-0 d-none"> @Html.DropDownListFor(model => Model[i].ValorCriterio3, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio3), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+
+                        }
+                        else
+                        {
+                            <div class="col-1 p-0 border border-0 bg-light text-center"> @Html.DropDownListFor(model => Model[i].ValorCriterio3, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio3), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+                        }
+
+                        @if (tema.DescripcionCriterio4 == "")
+                        {
+                            <div class="col-1 p-0 border d-none"> @Html.DropDownListFor(model => Model[i].ValorCriterio4, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio4), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+
+                        }
+                        else
+                        {
+                            <div class="col-1 p-0 border border-0 bg-light"> @Html.DropDownListFor(model => Model[i].ValorCriterio4, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio4), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+                        }
+
+                        @if (tema.DescripcionCriterio5 == "")
+                        {
+                            <div class="col-1 p-0 border d-none"> @Html.DropDownListFor(model => Model[i].ValorCriterio5, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio5), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+
+                        }
+                        else
+                        {
+                            <div class="col-1 p-0 border border-0 bg-light"> @Html.DropDownListFor(model => Model[i].ValorCriterio5, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio5), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+                        }
+
+                        @if (tema.DescripcionCriterio6 == "")
+                        {
+                            <div class="col-1 p-0 border d-none"> @Html.DropDownListFor(model => Model[i].ValorCriterio6, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio6), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+
+                        }
+                        else
+                        {
+                            <div class="col-1 p-0 border border-0 bg-light"> @Html.DropDownListFor(model => Model[i].ValorCriterio6, new SelectList(combo, "Value", "Text", Model[i].ValorCriterio6), "", htmlAttributes: new { @class = "form-control dropdown text-center" })</div>
+                        }
+
+                        <div class="col-2 p-0 border bg-light">@Html.Label(Model[i].Nota.ToString(), htmlAttributes: new { }) </div>
+
+
+                    </div>
+                }
+            }
+
+
+        </div>
+
+       
+
+
+        <div class="row mt-5 mb-5 pb-5">
+            <div class="col-12 d-flex text-center">
+                <div class="col-4">
+                    <a class="btn mt-2  text-light font-weight-bolder text-uppercase" href="@Url.Action("ListadoTemasCargados", "Rubrica", new {  @idMateria = tema.IdMateria, @idCurso = tema.Idcurso})"><i class="text-primary fas fa-clipboard-list fa-lg fa-3x align-items-center mb-2"></i>  <br />Temas Cargados</a>
+                </div>
+
+                <div class="col-4 text-center">
+                    <button class="btn mt-2 text-light font-weight-bolder text-uppercase" type="submit"><i class="text-primary fas fa-save fa-3x align-items-center mb-2 "></i> <br /> Guardar </button>
+                </div>
+
+                <div class="col-4">
+                    <a class="btn mt-2  text-light font-weight-bolder text-uppercase" href="@Url.Action("LibretaMateria", "Rubrica", new {  @idMateria = tema.IdMateria , @pagina = 1})"><i class="text-primary fas fa-sort-numeric-up fa-lg fa-3x align-items-center mb-2"></i>  <br />VER NOTAS</a>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+
+
+
+
+
+</body>
+</html>
+
